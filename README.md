@@ -196,4 +196,4 @@ Las contribuciones son bienvenidas. Para cambios importantes:
 5. Abre un Pull Request
 
 
-*Versión 1.0 - 2024*
+
