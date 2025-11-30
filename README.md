@@ -24,7 +24,6 @@ Una aplicación web moderna y responsive para gestionar actividades de proyectos
 - **Optimizado para móviles** con diseño adaptativo
 - **Gráficos ajustados** para pantallas pequeñas
 - **Modales responsive** para edición y agregar actividades
-- **Breakpoints**: Móvil (≤480px), Tablet (≤768px), Escritorio (>768px)
 
 ### 💾 Persistencia de Datos
 - **Local Storage** para guardar cambios automáticamente
@@ -138,17 +137,6 @@ proyecto-arquitectonico/
 - **Debounce** en filtros
 - **Caching** de configuraciones de gráficos
 
-## 🐛 Solución de Problemas
-
-### Problemas Comunes
-1. **Gráficos no se muestran**: Verificar conexión a internet para Chart.js
-2. **Datos no se guardan**: Verificar que Local Storage esté habilitado
-3. **PDF no se genera**: Verificar que jsPDF se cargue correctamente
-
-### Limpieza de Datos
-- Usar el botón **"Reiniciar"** para volver a actividades predeterminadas
-- Limpiar Local Storage manualmente si es necesario
-
 ## 📄 Licencia
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
@@ -161,6 +149,7 @@ Las contribuciones son bienvenidas. Para cambios importantes:
 3. Commit tus cambios
 4. Push a la rama
 5. Abre un Pull Request
+
 
 
 
