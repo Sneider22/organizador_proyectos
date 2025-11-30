@@ -52,26 +52,6 @@ proyecto-arquitectonico/
 └── README.md          # Documentación del proyecto
 ```
 
-## 📋 Actividades Predeterminadas
-
-### Alta Prioridad (3-5 horas)
-- **Planta Baja** (3 horas)
-- **Primer Piso** (3 horas)
-- **Segundo Piso** (3 horas)
-- **Maqueta Escala 1:1000** (5 horas)
-
-### Media Prioridad (2-4 horas)
-- **Estacionamiento** (2 horas)
-- **Dos Cortes Longitudinales** (2 horas)
-- **Un Corte Transversal** (2 horas)
-- **Dos Fachadas** (2 horas)
-- **Síntesis (Documentación)** (4 horas)
-- **Volumetría en 3D** (3 horas)
-
-### Baja Prioridad (1-3 horas)
-- **Distribución de Área** (1 hora)
-- **Planta de Conjunto con Sombra** (3 horas)
-
 ## 🎯 Funcionalidades Principales
 
 ### Gestión de Actividades
@@ -140,19 +120,6 @@ proyecto-arquitectonico/
 - **Canvas API** - Renderizado de gráficos
 - **File API** - Importación de archivos
 
-## 📱 Compatibilidad
-
-### Navegadores Soportados
-- ✅ Chrome 60+
-- ✅ Firefox 55+
-- ✅ Safari 12+
-- ✅ Edge 79+
-
-### Dispositivos
-- 📱 **Móviles**: iPhone, Android (optimizado)
-- 📱 **Tablets**: iPad, Android tablets
-- 💻 **Escritorio**: Windows, macOS, Linux
-
 ## 🚀 Características Avanzadas
 
 ### Exportación PDF
@@ -194,6 +161,7 @@ Las contribuciones son bienvenidas. Para cambios importantes:
 3. Commit tus cambios
 4. Push a la rama
 5. Abre un Pull Request
+
 
 
 
