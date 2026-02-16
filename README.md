@@ -31,17 +31,6 @@ Una aplicación web moderna y responsive para gestionar actividades de proyectos
 - **Importación de datos** desde archivos JSON
 - **Función de reinicio** a actividades predeterminadas
 
-## 🚀 Instalación y Uso
-
-### Requisitos
-- Navegador web moderno (Chrome, Firefox, Safari, Edge)
-- Conexión a internet (para librerías CDN)
-
-### Instalación
-1. Descarga todos los archivos del proyecto
-2. Abre `index.html` en tu navegador
-3. ¡Listo! La aplicación está lista para usar
-
 ### Estructura de Archivos
 ```
 proyecto-arquitectonico/
@@ -132,23 +121,11 @@ proyecto-arquitectonico/
 - **Recuperación de datos** en caso de cierre inesperado
 - **Sincronización** entre pestañas del navegador
 
-### Optimización de Rendimiento
-- **Lazy loading** de gráficos
-- **Debounce** en filtros
-- **Caching** de configuraciones de gráficos
-
 ## 📄 Licencia
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
-## 🤝 Contribuciones
 
-Las contribuciones son bienvenidas. Para cambios importantes:
-1. Fork el proyecto
-2. Crea una rama para tu feature
-3. Commit tus cambios
-4. Push a la rama
-5. Abre un Pull Request
 
 
 
