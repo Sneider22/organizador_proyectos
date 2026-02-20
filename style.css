@@ -493,8 +493,8 @@ select:focus {
     }
 
     .stats-cards {
-        grid-template-columns: 1fr;
-        gap: 8px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .stat-card {
