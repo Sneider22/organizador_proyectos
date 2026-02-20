@@ -26,7 +26,7 @@ header {
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 header p {
@@ -39,7 +39,7 @@ header p {
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .stats-cards {
@@ -56,7 +56,7 @@ header p {
     display: flex;
     align-items: center;
     color: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -103,7 +103,7 @@ header p {
     background: #f8f9fa;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
 }
@@ -120,20 +120,22 @@ header p {
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
     align-items: center;
 }
 
-.filter-section, .priority-section {
+.filter-section,
+.priority-section {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.filter-section label, .priority-section label {
+.filter-section label,
+.priority-section label {
     font-weight: 600;
     color: #555;
 }
@@ -163,14 +165,14 @@ select:focus {
     background: white;
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border-left: 5px solid #e1e5e9;
 }
 
 .task-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .task-card.high-priority {
@@ -283,7 +285,7 @@ select:focus {
     background: white;
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .add-task-section h3 {
@@ -325,159 +327,151 @@ select:focus {
     margin-right: 8px;
 }
 
+/* Button for header action */
+.header-actions {
+    margin-top: 20px;
+}
+
+.add-task-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-task-btn:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
     }
-    
+
     header h1 {
         font-size: 1.8rem;
         margin-bottom: 8px;
     }
-    
+
     header p {
         font-size: 1rem;
     }
-    
+
     .dashboard {
         padding: 15px;
         margin-bottom: 15px;
     }
-    
+
     .stats-cards {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
         margin-bottom: 20px;
     }
-    
+
     .stat-card {
         padding: 15px;
         flex-direction: column;
         text-align: center;
     }
-    
+
     .stat-icon {
         font-size: 2rem;
         margin-right: 0;
         margin-bottom: 8px;
     }
-    
+
     .stat-info h3 {
         font-size: 1.5rem;
         margin-bottom: 3px;
     }
-    
+
     .stat-info p {
         font-size: 0.8rem;
     }
-    
-    .charts-section {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .chart-container {
-        padding: 10px;
-        height: 200px;
-        overflow: hidden;
-    }
-    
+
     .controls {
         flex-direction: column;
         align-items: stretch;
         gap: 15px;
         padding: 15px;
     }
-    
-    .filter-section, .priority-section {
+
+    .filter-section,
+    .priority-section {
         flex-direction: column;
         align-items: stretch;
         gap: 5px;
     }
-    
-    .filter-section label, .priority-section label {
+
+    .filter-section label,
+    .priority-section label {
         font-size: 0.9rem;
     }
-    
+
     select {
         padding: 8px 12px;
         font-size: 0.9rem;
     }
-    
+
     .tasks-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .task-card {
         padding: 20px;
     }
-    
+
     .task-title {
         font-size: 1.1rem;
         margin-bottom: 8px;
     }
-    
+
     .task-priority {
         font-size: 0.75rem;
         padding: 4px 10px;
     }
-    
+
     .status-buttons {
         gap: 6px;
         margin-bottom: 12px;
     }
-    
+
     .status-btn {
         padding: 6px 12px;
         font-size: 0.8rem;
         flex: 1;
         min-width: 0;
     }
-    
+
     .task-hours {
         font-size: 0.85rem;
         margin-bottom: 12px;
     }
-    
+
     .task-actions {
         gap: 8px;
         margin-top: 12px;
     }
-    
+
     .action-btn {
         padding: 6px 10px;
         font-size: 0.8rem;
         flex: 1;
     }
-    
-    .add-task-section {
-        padding: 15px;
-    }
-    
-    .add-task-section h3 {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-    }
-    
-    .add-task-form {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .add-task-form input,
-    .add-task-form select {
-        min-width: auto;
-        padding: 10px 12px;
-        font-size: 0.9rem;
-    }
-    
-    #addTaskBtn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        width: 100%;
-    }
+
+    /* Removed .add-task-section styles as it is removed from HTML */
 }
 
 /* Responsive para pantallas muy pequeñas */
@@ -485,70 +479,62 @@ select:focus {
     .container {
         padding: 8px;
     }
-    
+
     header h1 {
         font-size: 1.5rem;
     }
-    
+
     header p {
         font-size: 0.9rem;
     }
-    
+
     .dashboard {
         padding: 12px;
     }
-    
+
     .stats-cards {
         grid-template-columns: 1fr;
         gap: 8px;
     }
-    
+
     .stat-card {
         padding: 12px;
     }
-    
+
     .stat-icon {
         font-size: 1.8rem;
     }
-    
+
     .stat-info h3 {
         font-size: 1.3rem;
     }
-    
+
     .chart-container {
         padding: 8px;
         height: 180px;
         overflow: hidden;
     }
-    
+
     .controls {
         padding: 12px;
     }
-    
+
     .task-card {
         padding: 15px;
     }
-    
+
     .task-title {
         font-size: 1rem;
     }
-    
+
     .status-btn {
         padding: 5px 8px;
         font-size: 0.75rem;
     }
-    
+
     .action-btn {
         padding: 5px 8px;
         font-size: 0.75rem;
-    }
-    
-    .add-task-section {
-        padding: 12px;
-    }
-    
-    .add-task-section h3 {
-        font-size: 1.1rem;
     }
 }
 
@@ -558,6 +544,7 @@ select:focus {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -635,7 +622,7 @@ select:focus {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
 }
 
@@ -646,7 +633,7 @@ select:focus {
     border-radius: 15px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: modalSlideIn 0.3s ease;
 }
 
@@ -655,6 +642,7 @@ select:focus {
         opacity: 0;
         transform: translateY(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -773,40 +761,40 @@ select:focus {
         width: 95%;
         max-width: none;
     }
-    
+
     .modal-header {
         padding: 15px 20px;
     }
-    
+
     .modal-header h3 {
         font-size: 1.2rem;
     }
-    
+
     .modal-body {
         padding: 20px;
     }
-    
+
     .form-group {
         margin-bottom: 15px;
     }
-    
+
     .form-group label {
         font-size: 0.9rem;
         margin-bottom: 6px;
     }
-    
+
     .form-group input,
     .form-group select {
         padding: 10px 12px;
         font-size: 0.9rem;
     }
-    
+
     .modal-footer {
         padding: 15px 20px;
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .save-btn,
     .cancel-btn {
         width: 100%;
@@ -821,41 +809,41 @@ select:focus {
         margin: 2% auto;
         width: 98%;
     }
-    
+
     .modal-header {
         padding: 12px 15px;
     }
-    
+
     .modal-header h3 {
         font-size: 1.1rem;
     }
-    
+
     .close {
         font-size: 24px;
     }
-    
+
     .modal-body {
         padding: 15px;
     }
-    
+
     .form-group {
         margin-bottom: 12px;
     }
-    
+
     .form-group label {
         font-size: 0.85rem;
     }
-    
+
     .form-group input,
     .form-group select {
         padding: 8px 10px;
         font-size: 0.85rem;
     }
-    
+
     .modal-footer {
         padding: 12px 15px;
     }
-    
+
     .save-btn,
     .cancel-btn {
         padding: 8px 15px;

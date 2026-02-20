@@ -1,133 +1,39 @@
-# 🏗️ Organizador de Proyecto Arquitectónico
+# Organizador de Proyectos
 
-Una aplicación web moderna y responsive para gestionar actividades de proyectos arquitectónicos con visualización de progreso, estadísticas y exportación a PDF.
+Una herramienta web moderna e intuitiva para gestionar las tareas y actividades de cualquier tipo de proyecto.
 
-## ✨ Características
+![Screenshot](screenshot.png)
 
-### 📋 Gestión de Actividades
-- **12 actividades predeterminadas** específicas para proyectos arquitectónicos
-- **Estados de progreso**: No Iniciado, En Proceso, Finalizado
-- **Prioridades**: Alta, Media, Baja con colores diferenciados
-- **Estimación de horas** por actividad
-- **Edición completa**: Modificar nombre, prioridad y horas estimadas
-- **Eliminación** con confirmación de seguridad
+## 🚀 Características
 
-### 📊 Visualización y Estadísticas
-- **Dashboard con métricas** en tiempo real
-- **Gráficos interactivos** con Chart.js:
-  - Gráfico circular de progreso del proyecto
-  - Gráfico de barras por prioridad
-- **Tarjetas de estadísticas** con iconos y colores distintivos
-- **Filtros avanzados** por estado y prioridad
+- **Gestión de Tareas**: Crea, edita y elimina actividades del proyecto.
+- **Seguimiento Visual**:
+  - Gráfico de **Progreso** (tipo dona) para ver el estado general.
+  - Gráfico de **Prioridades** (tipo barras) para analizar la distribución de importancia.
+- **Exportación de Informes**: Genera reportes detallados en **PDF** con estadísticas y gráficos visuales.
+- **Persistencia de Datos**: Tus datos se guardan automáticamente en el navegador.
+- **Importar/Exportar Datos**: Respalda tus proyectos o transfiérelos a otro dispositivo mediante archivos JSON.
+- **Diseño Responsivo**: Funciona perfectamente en computadoras, tablets y móviles.
 
-### 📱 Diseño Responsive
-- **Optimizado para móviles** con diseño adaptativo
-- **Gráficos ajustados** para pantallas pequeñas
-- **Modales responsive** para edición y agregar actividades
+## 🛠️ Tecnologías
 
-### 💾 Persistencia de Datos
-- **Local Storage** para guardar cambios automáticamente
-- **Exportación a PDF** con reportes completos
-- **Importación de datos** desde archivos JSON
-- **Función de reinicio** a actividades predeterminadas
+- **HTML5 & CSS3**: Diseño moderno y adaptable.
+- **JavaScript (Vanilla)**: Lógica rápida y ligera sin frameworks pesados.
+- **Chart.js**: Para visualizaciones de datos elegantes.
+- **jsPDF & html2canvas**: Para la generación de reportes PDF profesionales.
+- **Font Awesome**: Iconografía clara y universal.
 
-### Estructura de Archivos
-```
-proyecto-arquitectonico/
-├── index.html          # Estructura HTML principal
-├── style.css           # Estilos CSS responsive
-├── main.js            # Lógica JavaScript y funcionalidades
-└── README.md          # Documentación del proyecto
-```
+## 📋 Cómo Usar
 
-## 🎯 Funcionalidades Principales
+1. **Agregar Actividad**: Haz clic en el botón "Nueva Actividad", asigna un nombre, prioridad y horas estimadas.
+2. **Gestionar Estado**: Usa los botones de estado (No Iniciado, En Proceso, Finalizado) en cada tarjeta para actualizar el progreso.
+3. **Analizar**: Revisa el dashboard superior para ver estadísticas en tiempo real.
+4. **Reportar**: Haz clic en "Exportar PDF" para obtener un informe completo para compartir con tu equipo o clientes.
 
-### Gestión de Actividades
-- ✅ Cambiar estado de actividades
-- ✏️ Editar nombre, prioridad y horas
-- 🗑️ Eliminar actividades con confirmación
-- ➕ Agregar nuevas actividades personalizadas
+## 📦 Instalación
 
-### Filtros y Búsqueda
-- 🔍 Filtrar por estado (No Iniciado, En Proceso, Finalizado)
-- 🎯 Filtrar por prioridad (Alta, Media, Baja)
-- 📊 Combinación de filtros en tiempo real
-
-### Exportación e Importación
-- 📄 **Exportar PDF**: Reporte completo con estadísticas y gráficos
-- 📁 **Importar datos**: Cargar proyectos desde archivos JSON
-- 🔄 **Reiniciar**: Volver a actividades predeterminadas
-
-## 📊 Estadísticas y Métricas
-
-### Dashboard Principal
-- **Total de actividades** del proyecto
-- **Actividades en proceso** actualmente
-- **Actividades finalizadas** completadas
-- **Actividades no iniciadas** pendientes
-
-### Cálculos Automáticos
-- **Horas totales estimadas** del proyecto
-- **Horas completadas** según actividades finalizadas
-- **Horas en proceso** según actividades activas
-- **Porcentaje de progreso** del proyecto
-
-## 🎨 Diseño y UX
-
-### Paleta de Colores
-- **Gradientes modernos** para tarjetas de estadísticas
-- **Colores por prioridad**: Rojo (Alta), Naranja (Media), Verde (Baja)
-- **Estados visuales**: Gris (No iniciado), Naranja (En proceso), Verde (Finalizado)
-
-### Animaciones y Efectos
-- **Transiciones suaves** en hover y click
-- **Animaciones de entrada** para tarjetas
-- **Efectos de elevación** en elementos interactivos
-
-### Responsive Design
-- **Mobile First** approach
-- **Grid layouts** adaptativos
-- **Tipografía escalable** según dispositivo
-- **Espaciado optimizado** para cada pantalla
-
-## 🔧 Tecnologías Utilizadas
-
-### Frontend
-- **HTML5** - Estructura semántica
-- **CSS3** - Estilos modernos con Grid y Flexbox
-- **JavaScript ES6+** - Lógica de la aplicación
-
-### Librerías Externas
-- **Chart.js** - Gráficos interactivos
-- **jsPDF** - Generación de PDFs
-- **html2canvas** - Captura de gráficos para PDF
-- **Font Awesome** - Iconografía
-
-### APIs del Navegador
-- **Local Storage** - Persistencia de datos
-- **Canvas API** - Renderizado de gráficos
-- **File API** - Importación de archivos
-
-## 🚀 Características Avanzadas
-
-### Exportación PDF
-- **Reporte completo** con todas las actividades
-- **Gráficos incluidos** como imágenes de alta calidad
-- **Estadísticas detalladas** y métricas del proyecto
-- **Formato profesional** con numeración de páginas
-
-### Gestión de Datos
-- **Backup automático** en Local Storage
-- **Recuperación de datos** en caso de cierre inesperado
-- **Sincronización** entre pestañas del navegador
+No requiere instalación. Simplemente abre el archivo `index.html` en tu navegador web favorito.
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
-
-
-
-
-
-
-
+Este proyecto es de código abierto y está disponible para uso personal y comercial.

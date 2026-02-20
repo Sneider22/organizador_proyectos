@@ -1,4 +1,4 @@
-// Clase para gestionar las tareas del proyecto arquitectónico
+// Clase para gestionar las tareas del proyecto
 class ProjectManager {
     constructor() {
         this.tasks = this.loadTasks();
@@ -11,22 +11,19 @@ class ProjectManager {
         this.initializeCharts();
     }
 
-    // Inicializar tareas por defecto del proyecto arquitectónico
+    // Inicializar tareas por defecto
     initializeDefaultTasks() {
         if (this.tasks.length === 0) {
             const defaultTasks = [
-                { id: 1, name: "Planta Baja", priority: "high", hours: 3, status: "not-started" },
-                { id: 2, name: "Primer Piso", priority: "high", hours: 3, status: "not-started" },
-                { id: 3, name: "Segundo Piso", priority: "high", hours: 3, status: "not-started" },
-                { id: 4, name: "Estacionamiento", priority: "medium", hours: 2, status: "not-started" },
-                { id: 5, name: "Dos Cortes Longitudinales", priority: "medium", hours: 2, status: "not-started" },
-                { id: 6, name: "Un Corte Transversal", priority: "medium", hours: 2, status: "not-started" },
-                { id: 7, name: "Dos Fachadas", priority: "medium", hours: 2, status: "not-started" },
-                { id: 8, name: "Síntesis (Documentación)", priority: "medium", hours: 4, status: "not-started" },
-                { id: 9, name: "Volumetría en 3D", priority: "medium", hours: 3, status: "not-started" },
-                { id: 10, name: "Maqueta Escala 1:1000", priority: "high", hours: 5, status: "not-started" },
-                { id: 11, name: "Distribución de Área", priority: "low", hours: 1, status: "not-started" },
-                { id: 12, name: "Planta de Conjunto con Sombra", priority: "low", hours: 3, status: "not-started" }
+                { id: 1, name: "Planificación Inicial", priority: "high", hours: 4, status: "completed" },
+                { id: 2, name: "Investigación", priority: "high", hours: 6, status: "in-progress" },
+                { id: 3, name: "Desarrollo del Prototipo", priority: "high", hours: 10, status: "not-started" },
+                { id: 4, name: "Pruebas de Usuario", priority: "medium", hours: 5, status: "not-started" },
+                { id: 5, name: "Corrección de Errores", priority: "medium", hours: 4, status: "not-started" },
+                { id: 6, name: "Documentación", priority: "medium", hours: 3, status: "not-started" },
+                { id: 7, name: "Despliegue", priority: "high", hours: 2, status: "not-started" },
+                { id: 8, name: "Marketing", priority: "low", hours: 8, status: "not-started" },
+                { id: 9, name: "Análisis de Feedback", priority: "medium", hours: 3, status: "not-started" }
             ];
             this.tasks = defaultTasks;
             this.saveTasks();
@@ -36,7 +33,7 @@ class ProjectManager {
     // Reiniciar a actividades predeterminadas
     resetToDefaultTasks() {
         if (confirm('¿Estás seguro de que quieres reiniciar a las actividades predeterminadas? Se perderán todas las actividades actuales.')) {
-            localStorage.removeItem('architecturalProjectTasks');
+            localStorage.removeItem('projectTasks');
             this.tasks = [];
             this.initializeDefaultTasks();
             this.renderTasks();
@@ -48,10 +45,13 @@ class ProjectManager {
 
     // Inicializar event listeners
     initializeEventListeners() {
-        // Botón agregar tarea
-        document.getElementById('addTaskBtn').addEventListener('click', () => {
-            this.addNewTask();
-        });
+        // Botón agregar tarea en el modal
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        if (addTaskBtn) {
+            addTaskBtn.addEventListener('click', () => {
+                this.addNewTask();
+            });
+        }
 
         // Filtros
         document.getElementById('statusFilter').addEventListener('change', (e) => {
@@ -62,24 +62,30 @@ class ProjectManager {
             this.filterTasks('priority', e.target.value);
         });
 
-        // Enter en el input de nueva tarea
-        document.getElementById('newTaskName').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.addNewTask();
-            }
-        });
+        // Enter en el input de nueva tarea (en el modal)
+        const newTaskNameInput = document.getElementById('newTaskName');
+        if (newTaskNameInput) {
+            newTaskNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.addNewTask();
+                }
+            });
+        }
 
         // Botón guardar en modal de edición
         document.getElementById('saveEditBtn').addEventListener('click', () => {
             this.saveTaskEdit();
         });
 
-        // Enter en inputs del modal
-        document.getElementById('editTaskName').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.saveTaskEdit();
-            }
-        });
+        // Enter en inputs del modal edición
+        const editTaskNameInput = document.getElementById('editTaskName');
+        if (editTaskNameInput) {
+            editTaskNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.saveTaskEdit();
+                }
+            });
+        }
 
         // Redimensionar gráficos cuando cambie el tamaño de la ventana
         window.addEventListener('resize', () => {
@@ -110,9 +116,13 @@ class ProjectManager {
 
     // Agregar nueva tarea
     addNewTask() {
-        const name = document.getElementById('newTaskName').value.trim();
-        const priority = document.getElementById('newTaskPriority').value;
-        const hours = parseInt(document.getElementById('newTaskHours').value) || 1;
+        const nameInput = document.getElementById('newTaskName');
+        const priorityInput = document.getElementById('newTaskPriority');
+        const hoursInput = document.getElementById('newTaskHours');
+
+        const name = nameInput.value.trim();
+        const priority = priorityInput.value;
+        const hours = parseInt(hoursInput.value) || 1;
 
         if (name) {
             const newTask = {
@@ -130,8 +140,14 @@ class ProjectManager {
             this.updateCharts();
 
             // Limpiar formulario
-            document.getElementById('newTaskName').value = '';
-            document.getElementById('newTaskHours').value = '';
+            nameInput.value = '';
+            hoursInput.value = '';
+            priorityInput.value = 'high'; // Reset priority to default
+
+            // Cerrar modal
+            closeAddModal();
+        } else {
+            alert('Por favor complete el nombre de la actividad');
         }
     }
 
@@ -172,7 +188,7 @@ class ProjectManager {
                     task.name = name;
                     task.priority = priority;
                     task.hours = hours;
-                    
+
                     this.saveTasks();
                     this.renderTasks();
                     this.updateStats();
@@ -273,14 +289,14 @@ class ProjectManager {
         const cards = document.querySelectorAll('.task-card');
         cards.forEach(card => {
             let show = true;
-            
+
             if (type === 'status') {
                 const statusFilter = document.getElementById('statusFilter').value;
                 if (statusFilter !== 'all') {
                     show = card.classList.contains(statusFilter);
                 }
             }
-            
+
             if (type === 'priority') {
                 const priorityFilter = document.getElementById('priorityFilter').value;
                 if (priorityFilter !== 'all') {
@@ -291,7 +307,7 @@ class ProjectManager {
             // Aplicar ambos filtros
             const statusFilter = document.getElementById('statusFilter').value;
             const priorityFilter = document.getElementById('priorityFilter').value;
-            
+
             if (statusFilter !== 'all' && !card.classList.contains(statusFilter)) {
                 show = false;
             }
@@ -332,39 +348,64 @@ class ProjectManager {
                 datasets: [{
                     data: [0, 0, 0],
                     backgroundColor: [
-                        '#9e9e9e',
-                        '#ff9800',
-                        '#4caf50'
+                        '#e0e0e0', // Gris suave
+                        '#ff9800', // Naranja vibrante
+                        '#4caf50'  // Verde vibrante
                     ],
-                    borderWidth: 0
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                aspectRatio: window.innerWidth <= 480 ? 1.5 : 2,
+                cutout: '75%', // Hace el gráfico más fino y elegante
                 plugins: {
                     title: {
                         display: true,
                         text: 'Progreso del Proyecto',
                         font: {
-                            size: window.innerWidth <= 480 ? 12 : window.innerWidth <= 768 ? 14 : 16,
-                            weight: 'bold'
-                        }
+                            size: 18,
+                            weight: 'bold',
+                            family: "'Segoe UI', sans-serif"
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        },
+                        color: '#333'
                     },
                     legend: {
                         position: 'bottom',
                         labels: {
+                            usePointStyle: true,
+                            padding: 20,
                             font: {
-                                size: window.innerWidth <= 480 ? 8 : window.innerWidth <= 768 ? 10 : 12
-                            },
-                            padding: window.innerWidth <= 480 ? 5 : window.innerWidth <= 768 ? 10 : 20,
-                            boxWidth: window.innerWidth <= 480 ? 8 : 12
+                                size: 12,
+                                family: "'Segoe UI', sans-serif"
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8,
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 13
                         }
                     }
                 },
                 layout: {
-                    padding: window.innerWidth <= 480 ? 5 : 10
+                    padding: 20
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
             }
         });
@@ -376,63 +417,88 @@ class ProjectManager {
         this.charts.priority = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Alta Prioridad', 'Media Prioridad', 'Baja Prioridad'],
+                labels: ['Alta', 'Media', 'Baja'],
                 datasets: [{
                     label: 'Tareas por Prioridad',
                     data: [0, 0, 0],
                     backgroundColor: [
+                        'rgba(255, 107, 107, 0.8)', // Rojo suave
+                        'rgba(255, 167, 38, 0.8)',  // Naranja suave
+                        'rgba(102, 187, 106, 0.8)'  // Verde suave
+                    ],
+                    borderColor: [
                         '#ff6b6b',
                         '#ffa726',
                         '#66bb6a'
                     ],
-                    borderWidth: 0,
-                    borderRadius: 8
+                    borderWidth: 2,
+                    borderRadius: 8, // Bordes redondeados en las barras
+                    borderSkipped: false
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                aspectRatio: window.innerWidth <= 480 ? 1.8 : 2.2,
                 plugins: {
                     title: {
                         display: true,
                         text: 'Distribución por Prioridad',
                         font: {
-                            size: window.innerWidth <= 480 ? 12 : window.innerWidth <= 768 ? 14 : 16,
-                            weight: 'bold'
-                        }
+                            size: 18,
+                            weight: 'bold',
+                            family: "'Segoe UI', sans-serif"
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        },
+                        color: '#333'
                     },
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
                     }
                 },
                 scales: {
                     x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
                         ticks: {
                             font: {
-                                size: window.innerWidth <= 480 ? 8 : window.innerWidth <= 768 ? 9 : 12
+                                size: 12,
+                                family: "'Segoe UI', sans-serif"
                             },
-                            maxRotation: window.innerWidth <= 480 ? 45 : 0
-                        },
-                        grid: {
-                            display: false
+                            color: '#666'
                         }
                     },
                     y: {
                         beginAtZero: true,
+                        grid: {
+                            color: '#f0f0f0',
+                            drawBorder: false
+                        },
                         ticks: {
                             stepSize: 1,
                             font: {
-                                size: window.innerWidth <= 480 ? 8 : window.innerWidth <= 768 ? 9 : 12
-                            }
-                        },
-                        grid: {
-                            color: window.innerWidth <= 480 ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.2)'
+                                size: 12,
+                                family: "'Segoe UI', sans-serif"
+                            },
+                            color: '#666'
                         }
                     }
                 },
                 layout: {
-                    padding: window.innerWidth <= 480 ? 5 : 10
+                    padding: 20
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                 }
             }
         });
@@ -459,12 +525,12 @@ class ProjectManager {
 
     // Guardar tareas en localStorage
     saveTasks() {
-        localStorage.setItem('architecturalProjectTasks', JSON.stringify(this.tasks));
+        localStorage.setItem('projectTasks', JSON.stringify(this.tasks));
     }
 
     // Cargar tareas desde localStorage
     loadTasks() {
-        const saved = localStorage.getItem('architecturalProjectTasks');
+        const saved = localStorage.getItem('projectTasks');
         return saved ? JSON.parse(saved) : [];
     }
 
@@ -500,9 +566,9 @@ let projectManager;
 
 document.addEventListener('DOMContentLoaded', () => {
     projectManager = new ProjectManager();
-    
+
     // Mostrar información adicional en la consola
-    console.log('🏗️ Organizador de Proyecto Arquitectónico iniciado');
+    console.log('🏗️ Organizador de Proyectos iniciado');
     console.log(`📊 Total de horas estimadas: ${projectManager.getTotalEstimatedHours()}`);
     console.log(`✅ Progreso: ${projectManager.getProgressPercentage()}%`);
 });
@@ -514,6 +580,14 @@ function closeEditModal() {
     }
 }
 
+function closeAddModal() {
+    document.getElementById('addModal').style.display = 'none';
+}
+
+function openAddModal() {
+    document.getElementById('addModal').style.display = 'block';
+}
+
 // Función global para reiniciar actividades predeterminadas
 function resetToDefault() {
     if (projectManager) {
@@ -521,11 +595,15 @@ function resetToDefault() {
     }
 }
 
-// Cerrar modal al hacer clic fuera de él
-window.onclick = function(event) {
-    const modal = document.getElementById('editModal');
-    if (event.target === modal) {
+// Cerrar modales al hacer clic fuera de ellos
+window.onclick = function (event) {
+    const editModal = document.getElementById('editModal');
+    const addModal = document.getElementById('addModal');
+    if (event.target === editModal) {
         closeEditModal();
+    }
+    if (event.target === addModal) {
+        closeAddModal();
     }
 }
 
@@ -537,21 +615,21 @@ function exportData() {
 async function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
+
     // Configuración del documento
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
     const contentWidth = pageWidth - (margin * 2);
-    
+
     let yPosition = margin;
-    
+
     // Título principal
     doc.setFontSize(24);
     doc.setFont(undefined, 'bold');
-    doc.text('Reporte de Proyecto Arquitectónico', pageWidth / 2, yPosition, { align: 'center' });
+    doc.text('Reporte de Proyecto', pageWidth / 2, yPosition, { align: 'center' });
     yPosition += 15;
-    
+
     // Fecha de generación
     doc.setFontSize(10);
     doc.setFont(undefined, 'normal');
@@ -564,13 +642,13 @@ async function generatePDF() {
     });
     doc.text(`Generado el: ${currentDate}`, pageWidth / 2, yPosition, { align: 'center' });
     yPosition += 20;
-    
+
     // Estadísticas generales
     doc.setFontSize(16);
     doc.setFont(undefined, 'bold');
     doc.text('Estadísticas Generales', margin, yPosition);
     yPosition += 10;
-    
+
     // Crear tabla de estadísticas
     const stats = [
         ['Total de Actividades', projectManager.tasks.length],
@@ -579,23 +657,23 @@ async function generatePDF() {
         ['Horas en Proceso', `${projectManager.getInProgressHours()} horas`],
         ['Progreso del Proyecto', `${projectManager.getProgressPercentage()}%`]
     ];
-    
+
     // Dibujar tabla de estadísticas
     const tableStartY = yPosition;
     const rowHeight = 8;
     const colWidths = [contentWidth * 0.6, contentWidth * 0.4];
-    
+
     doc.setFontSize(10);
     doc.setFont(undefined, 'bold');
-    
+
     // Encabezados de tabla
     doc.rect(margin, tableStartY, colWidths[0], rowHeight);
     doc.text('Concepto', margin + 2, tableStartY + 5);
     doc.rect(margin + colWidths[0], tableStartY, colWidths[1], rowHeight);
     doc.text('Valor', margin + colWidths[0] + 2, tableStartY + 5);
-    
+
     yPosition = tableStartY + rowHeight;
-    
+
     // Filas de datos
     doc.setFont(undefined, 'normal');
     stats.forEach(([concept, value]) => {
@@ -605,72 +683,72 @@ async function generatePDF() {
         doc.text(value.toString(), margin + colWidths[0] + 2, yPosition + 5);
         yPosition += rowHeight;
     });
-    
+
     yPosition += 15;
-    
+
     // Distribución por estado
     doc.setFontSize(16);
     doc.setFont(undefined, 'bold');
     doc.text('Distribución por Estado', margin, yPosition);
     yPosition += 10;
-    
+
     const statusStats = [
         ['No Iniciadas', projectManager.tasks.filter(t => t.status === 'not-started').length],
         ['En Proceso', projectManager.tasks.filter(t => t.status === 'in-progress').length],
         ['Finalizadas', projectManager.tasks.filter(t => t.status === 'completed').length]
     ];
-    
+
     statusStats.forEach(([status, count]) => {
         doc.setFontSize(10);
         doc.setFont(undefined, 'normal');
         doc.text(`• ${status}: ${count} actividades`, margin + 10, yPosition);
         yPosition += 6;
     });
-    
+
     yPosition += 10;
-    
+
     // Distribución por prioridad
     doc.setFontSize(16);
     doc.setFont(undefined, 'bold');
     doc.text('Distribución por Prioridad', margin, yPosition);
     yPosition += 10;
-    
+
     const priorityStats = [
         ['Alta Prioridad', projectManager.tasks.filter(t => t.priority === 'high').length],
         ['Media Prioridad', projectManager.tasks.filter(t => t.priority === 'medium').length],
         ['Baja Prioridad', projectManager.tasks.filter(t => t.priority === 'low').length]
     ];
-    
+
     priorityStats.forEach(([priority, count]) => {
         doc.setFontSize(10);
         doc.setFont(undefined, 'normal');
         doc.text(`• ${priority}: ${count} actividades`, margin + 10, yPosition);
         yPosition += 6;
     });
-    
+
     yPosition += 15;
-    
+
     // Lista detallada de actividades
     doc.setFontSize(16);
     doc.setFont(undefined, 'bold');
     doc.text('Lista Detallada de Actividades', margin, yPosition);
     yPosition += 10;
-    
+
     // Encabezados de tabla de actividades
     const activityColWidths = [contentWidth * 0.4, contentWidth * 0.2, contentWidth * 0.2, contentWidth * 0.2];
     const activityHeaders = ['Actividad', 'Prioridad', 'Estado', 'Horas'];
-    
+
     doc.setFontSize(9);
     doc.setFont(undefined, 'bold');
-    
+
     let tableY = yPosition;
     activityHeaders.forEach((header, index) => {
         doc.rect(margin + activityColWidths.slice(0, index).reduce((a, b) => a + b, 0), tableY, activityColWidths[index], rowHeight);
         doc.text(header, margin + activityColWidths.slice(0, index).reduce((a, b) => a + b, 0) + 2, tableY + 5);
     });
-    
+
     yPosition = tableY + rowHeight;
-    
+
     // Filas de actividades
     doc.setFont(undefined, 'normal');
     projectManager.tasks.forEach(task => {
@@ -679,70 +757,100 @@ async function generatePDF() {
             doc.addPage();
             yPosition = margin;
         }
-        
+
         const rowData = [
             task.name.length > 30 ? task.name.substring(0, 27) + '...' : task.name,
             projectManager.getPriorityText(task.priority),
-            task.status === 'not-started' ? 'No Iniciado' : 
-            task.status === 'in-progress' ? 'En Proceso' : 'Finalizado',
+            task.status === 'not-started' ? 'No Iniciado' :
+                task.status === 'in-progress' ? 'En Proceso' : 'Finalizado',
             task.hours.toString()
         ];
-        
+
         rowData.forEach((data, index) => {
             doc.rect(margin + activityColWidths.slice(0, index).reduce((a, b) => a + b, 0), yPosition, activityColWidths[index], rowHeight);
             doc.text(data, margin + activityColWidths.slice(0, index).reduce((a, b) => a + b, 0) + 2, yPosition + 5);
         });
-        
+
         yPosition += rowHeight;
     });
-    
+
     // Agregar gráficos si hay espacio
     try {
-        yPosition += 10;
-        if (yPosition < pageHeight - 100) {
-            // Capturar gráfico de progreso
-            const progressCanvas = document.getElementById('progressChart');
-            if (progressCanvas) {
-                const canvas = await html2canvas(progressCanvas, {
-                    backgroundColor: '#ffffff',
-                    scale: 2
-                });
-                
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = contentWidth * 0.45;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                
-                doc.setFontSize(12);
-                doc.setFont(undefined, 'bold');
-                doc.text('Gráfico de Progreso', margin, yPosition);
-                yPosition += 10;
-                
-                doc.addImage(imgData, 'PNG', margin, yPosition, imgWidth, imgHeight);
-                
-                // Capturar gráfico de prioridades
-                const priorityCanvas = document.getElementById('priorityChart');
-                if (priorityCanvas) {
-                    const canvas2 = await html2canvas(priorityCanvas, {
-                        backgroundColor: '#ffffff',
-                        scale: 2
-                    });
-                    
-                    const imgData2 = canvas2.toDataURL('image/png');
-                    const imgWidth2 = contentWidth * 0.45;
-                    const imgHeight2 = (canvas2.height * imgWidth2) / canvas2.width;
-                    
-                    doc.setFontSize(12);
-                    doc.setFont(undefined, 'bold');
-                    doc.text('Gráfico de Prioridades', margin + imgWidth + 10, yPosition - 10);
-                    
-                    doc.addImage(imgData2, 'PNG', margin + imgWidth + 10, yPosition, imgWidth2, imgHeight2);
-                }
-            }
+        // Nueva página para gráficos si no hay suficiente espacio
+        if (yPosition > pageHeight - 120) {
+            doc.addPage();
+            yPosition = margin;
+        } else {
+            yPosition += 20;
         }
+
+        doc.setFontSize(16);
+        doc.setFont(undefined, 'bold');
+        doc.text('Análisis Visual', margin, yPosition);
+        yPosition += 15;
+
+        // Configuración común para captura
+        const captureOptions = {
+            backgroundColor: '#ffffff',
+            scale: 3 // Mayor calidad
+        };
+
+        // Capturar gráfico de progreso (Más grande y centrado)
+        const progressCanvas = document.getElementById('progressChart');
+        if (progressCanvas) {
+            const canvas = await html2canvas(progressCanvas, captureOptions);
+            const imgData = canvas.toDataURL('image/png');
+            // Usar el 70% del ancho disponible para que sea bien grande
+            const imgWidth = contentWidth * 0.7;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            // Centrar imagen
+            const xPos = margin + (contentWidth - imgWidth) / 2;
+
+            // Verificar espacio
+            if (yPosition + imgHeight > pageHeight - margin) {
+                doc.addPage();
+                yPosition = margin;
+            }
+
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Progreso del Proyecto', pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 10;
+
+            doc.addImage(imgData, 'PNG', xPos, yPosition, imgWidth, imgHeight);
+            yPosition += imgHeight + 20;
+        }
+
+        // Capturar gráfico de prioridades (Más grande y centrado)
+        const priorityCanvas = document.getElementById('priorityChart');
+        if (priorityCanvas) {
+            const canvas2 = await html2canvas(priorityCanvas, captureOptions);
+            const imgData2 = canvas2.toDataURL('image/png');
+            // Usar el 80% del ancho para el gráfico de barras
+            const imgWidth2 = contentWidth * 0.8;
+            const imgHeight2 = (canvas2.height * imgWidth2) / canvas2.width;
+
+            const xPos2 = margin + (contentWidth - imgWidth2) / 2;
+
+            // Verificar espacio
+            if (yPosition + imgHeight2 > pageHeight - margin) {
+                doc.addPage();
+                yPosition = margin;
+            }
+
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Distribución por Prioridad', pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 10;
+
+            doc.addImage(imgData2, 'PNG', xPos2, yPosition, imgWidth2, imgHeight2);
+        }
+
     } catch (error) {
         console.log('No se pudieron agregar los gráficos al PDF:', error);
     }
-    
+
     // Pie de página
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
@@ -750,11 +858,11 @@ async function generatePDF() {
         doc.setFontSize(8);
         doc.setFont(undefined, 'normal');
         doc.text(`Página ${i} de ${totalPages}`, pageWidth - 30, pageHeight - 10);
-        doc.text('Generado por Organizador de Proyecto Arquitectónico', margin, pageHeight - 10);
+        doc.text('Generado por Organizador de Proyectos', margin, pageHeight - 10);
     }
-    
+
     // Guardar el PDF
-    const fileName = `proyecto-arquitectonico-${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `proyecto-${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(fileName);
 }
 
@@ -798,6 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <button onclick="exportData()" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
             <i class="fas fa-file-pdf"></i> Exportar PDF
         </button>
+
         <button onclick="importData()" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
             <i class="fas fa-upload"></i> Importar
         </button>
