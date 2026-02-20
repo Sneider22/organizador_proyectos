@@ -2,8 +2,6 @@
 
 Una herramienta web moderna e intuitiva para gestionar las tareas y actividades de cualquier tipo de proyecto.
 
-![Screenshot](screenshot.png)
-
 ## 🚀 Características
 
 - **Gestión de Tareas**: Crea, edita y elimina actividades del proyecto.
@@ -37,3 +35,4 @@ No requiere instalación. Simplemente abre el archivo `index.html` en tu navegad
 ## 📄 Licencia
 
 Este proyecto es de código abierto y está disponible para uso personal y comercial.
+
