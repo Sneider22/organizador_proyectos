@@ -2,7 +2,7 @@
 
 Una herramienta web moderna e intuitiva para gestionar las tareas y actividades de cualquier tipo de proyecto.
 
-## 🚀 Características
+## Características
 
 - **Gestión de Tareas**: Crea, edita y elimina actividades del proyecto.
 - **Seguimiento Visual**:
