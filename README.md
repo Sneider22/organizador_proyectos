@@ -32,7 +32,7 @@ Una herramienta web moderna e intuitiva para gestionar las tareas y actividades 
 
 No requiere instalación. Simplemente abre el archivo `index.html` en tu navegador web favorito.
 
-## 📄 Licencia
+## Licencia
 
-Este proyecto es de código abierto y está disponible para uso personal y comercial.
+Este proyecto es de código abierto y está disponible para uso personal.
 
