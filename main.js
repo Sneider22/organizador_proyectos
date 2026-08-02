@@ -9,6 +9,7 @@ class ProjectManager {
         this.renderTasks();
         this.updateStats();
         this.initializeCharts();
+        this.initializeTheme();
     }
 
     // Inicializar tareas por defecto
@@ -336,6 +337,9 @@ class ProjectManager {
     initializeCharts() {
         this.createProgressChart();
         this.createPriorityChart();
+        const isDark = document.body.classList.contains('dark-theme');
+        this.updateChartsTheme(isDark);
+        this.updateCharts();
     }
 
     // Crear gráfico de progreso
@@ -348,11 +352,11 @@ class ProjectManager {
                 datasets: [{
                     data: [0, 0, 0],
                     backgroundColor: [
-                        '#e0e0e0', // Gris suave
-                        '#ff9800', // Naranja vibrante
-                        '#4caf50'  // Verde vibrante
+                        '#94a3b8', // Gris slate elegante
+                        '#f59e0b', // Naranja/Ámbar
+                        '#10b981'  // Verde esmeralda
                     ],
-                    borderWidth: 2,
+                    borderWidth: 3,
                     borderColor: '#ffffff',
                     hoverOffset: 4
                 }]
@@ -422,17 +426,17 @@ class ProjectManager {
                     label: 'Tareas por Prioridad',
                     data: [0, 0, 0],
                     backgroundColor: [
-                        'rgba(255, 107, 107, 0.8)', // Rojo suave
-                        'rgba(255, 167, 38, 0.8)',  // Naranja suave
-                        'rgba(102, 187, 106, 0.8)'  // Verde suave
+                        'rgba(239, 68, 68, 0.85)',  // Rojo elegante
+                        'rgba(245, 158, 11, 0.85)',  // Ámbar elegante
+                        'rgba(59, 130, 246, 0.85)'   // Azul Google/SaaS
                     ],
                     borderColor: [
-                        '#ff6b6b',
-                        '#ffa726',
-                        '#66bb6a'
+                        '#ef4444',
+                        '#f59e0b',
+                        '#3b82f6'
                     ],
                     borderWidth: 2,
-                    borderRadius: 8, // Bordes redondeados en las barras
+                    borderRadius: 6, // Bordes redondeados en las barras
                     borderSkipped: false
                 }]
             },
@@ -558,6 +562,62 @@ class ProjectManager {
         const completed = this.getCompletedHours();
         const total = this.getTotalEstimatedHours();
         return total > 0 ? Math.round((completed / total) * 100) : 0;
+    }
+
+    // Inicializar tema claro/oscuro
+    initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+        if (isDark) {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme');
+        }
+        
+        this.updateThemeToggleIcon(isDark);
+        
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+    }
+
+    toggleTheme() {
+        const isDark = document.body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        this.updateThemeToggleIcon(isDark);
+        this.updateChartsTheme(isDark);
+    }
+
+    updateThemeToggleIcon(isDark) {
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            themeToggle.title = isDark ? 'Cambiar a Tema Claro' : 'Cambiar a Tema Oscuro';
+        }
+    }
+
+    updateChartsTheme(isDark) {
+        const textColor = isDark ? '#cbd5e1' : '#1e293b';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : '#f0f0f0';
+
+        if (this.charts.progress) {
+            this.charts.progress.options.plugins.title.color = textColor;
+            this.charts.progress.options.plugins.legend.labels.color = textColor;
+            this.charts.progress.update();
+        }
+
+        if (this.charts.priority) {
+            this.charts.priority.options.plugins.title.color = textColor;
+            this.charts.priority.options.scales.x.ticks.color = isDark ? '#94a3b8' : '#666';
+            this.charts.priority.options.scales.y.ticks.color = isDark ? '#94a3b8' : '#666';
+            this.charts.priority.options.scales.y.grid.color = gridColor;
+            this.charts.priority.update();
+        }
     }
 }
 
@@ -792,14 +852,14 @@ async function generatePDF() {
         // Configuración común para captura
         const captureOptions = {
             backgroundColor: '#ffffff',
-            scale: 3 // Mayor calidad
+            scale: 2.5 // Balance ideal entre calidad e impresión
         };
 
         // Capturar gráfico de progreso (Más grande y centrado)
         const progressCanvas = document.getElementById('progressChart');
         if (progressCanvas) {
             const canvas = await html2canvas(progressCanvas, captureOptions);
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png'); // PNG para máxima nitidez de gráficos y textos
             // Usar el 70% del ancho disponible para que sea bien grande
             const imgWidth = contentWidth * 0.7;
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -826,7 +886,7 @@ async function generatePDF() {
         const priorityCanvas = document.getElementById('priorityChart');
         if (priorityCanvas) {
             const canvas2 = await html2canvas(priorityCanvas, captureOptions);
-            const imgData2 = canvas2.toDataURL('image/png');
+            const imgData2 = canvas2.toDataURL('image/png'); // PNG para máxima nitidez de gráficos y textos
             // Usar el 80% del ancho para el gráfico de barras
             const imgWidth2 = contentWidth * 0.8;
             const imgHeight2 = (canvas2.height * imgWidth2) / canvas2.width;
@@ -901,17 +961,17 @@ function importData() {
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const buttonContainer = document.createElement('div');
-    buttonContainer.style.cssText = 'margin-top: 20px; display: flex; gap: 15px; justify-content: center;';
+    buttonContainer.className = 'header-actions-extra';
     buttonContainer.innerHTML = `
-        <button onclick="exportData()" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+        <button onclick="exportData()" class="btn-action btn-pdf">
             <i class="fas fa-file-pdf"></i> Exportar PDF
         </button>
 
-        <button onclick="importData()" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-            <i class="fas fa-upload"></i> Importar
+        <button onclick="importData()" class="btn-action btn-import">
+            <i class="fas fa-upload"></i> Importar Datos
         </button>
-        <button onclick="resetToDefault()" style="background: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-            <i class="fas fa-refresh"></i> Reiniciar
+        <button onclick="resetToDefault()" class="btn-action btn-reset">
+            <i class="fas fa-rotate-left"></i> Reiniciar
         </button>
     `;
     header.appendChild(buttonContainer);
